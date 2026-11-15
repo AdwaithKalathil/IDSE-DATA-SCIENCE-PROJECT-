@@ -1,0 +1,8 @@
+step,rows
+raw rows,8128
+max_power=0 set to NaN,6
+mileage=0 set to NaN,17
+exact duplicates removed,1202
+implausible km_driven removed,3
+'Test Drive Car' merged into First Owner,5
+final rows,6923

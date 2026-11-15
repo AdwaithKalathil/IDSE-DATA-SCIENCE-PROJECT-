@@ -1,0 +1,14 @@
+,mean_abs_shap_logprice,approx_price_swing_%
+age,0.324,38.305
+max_power,0.204,22.573
+brand,0.098,10.326
+engine,0.093,9.733
+fuel,0.071,7.406
+km_driven,0.055,5.619
+owner_num,0.04,4.094
+brand_tier,0.032,3.255
+mileage,0.029,2.928
+transmission,0.019,1.917
+km_per_year,0.016,1.642
+seats,0.016,1.64
+seller_type,0.003,0.293

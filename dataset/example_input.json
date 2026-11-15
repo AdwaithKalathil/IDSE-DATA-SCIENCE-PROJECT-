@@ -1,0 +1,28 @@
+{
+  "input_columns": [
+    "year",
+    "km_driven",
+    "mileage",
+    "engine",
+    "max_power",
+    "seats",
+    "fuel",
+    "seller_type",
+    "transmission",
+    "owner",
+    "brand"
+  ],
+  "example": {
+    "year": 2017,
+    "km_driven": 35000,
+    "mileage": 21.4,
+    "engine": 1197.0,
+    "max_power": 83.1,
+    "seats": 5.0,
+    "fuel": "Petrol",
+    "seller_type": "Individual",
+    "transmission": "Manual",
+    "owner": "First Owner",
+    "brand": "Maruti"
+  }
+}
