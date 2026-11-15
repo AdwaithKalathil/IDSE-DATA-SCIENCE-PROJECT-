@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101d32">
+  <meta name="description" content="Used-car resale price estimate based on CarDekho listing data.">
+  <title>CarValue — Used-car price estimator</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand-mark" href="/" aria-label="CarValue home">
+      <span class="brand-icon" aria-hidden="true">C</span>
+      <span>car<span class="brand-accent">value</span></span>
+    </a>
+    <span class="header-note"><span class="status-dot"></span> MODEL-BASED ESTIMATE</span>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">USED-CAR PRICE INTELLIGENCE</p>
+        <h1 id="page-title">Know what your car<br><span>could be worth.</span></h1>
+        <p class="hero-description">An estimate of resale value based on listing patterns from the Indian used-car market.</p>
+      </div>
+      <div class="hero-metric" aria-label="Model: XGBoost, trained on CarDekho data">
+        <div class="metric-line"><span class="metric-dot"></span> PREDICTION ENGINE</div>
+        <div class="metric-name">XGBoost <span>·</span> CarDekho</div>
+        <div class="metric-caption">Historical listing data · INR</div>
+      </div>
+    </section>
+
+    <section class="workspace" aria-label="Car price estimator">
+      <div class="form-panel panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">01 / VEHICLE DETAILS</p>
+            <h2>Tell us about the car</h2>
+            <p class="subheading">Enter the listing details to calculate an estimate.</p>
+          </div>
+          <span class="step-tag">7 required fields</span>
+        </div>
+
+        <div id="load-error" class="notice notice-error" role="alert" hidden></div>
+        <form id="car-form" novalidate>
+          <fieldset id="form-fields" disabled>
+            <div id="fields-grid" class="fields-grid"></div>
+          </fieldset>
+          <div class="form-actions">
+            <div class="utility-actions">
+              <button type="button" id="example-button" class="text-button">↳ Load example car</button>
+              <button type="button" id="reset-button" class="text-button muted-button">Reset</button>
+            </div>
+            <button type="submit" id="predict-button" class="primary-button" disabled>
+              <span class="button-label">Predict resale value</span>
+              <span class="button-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+        <p class="form-footnote"><span aria-hidden="true">ⓘ</span> Estimates are indicative, not a guaranteed sale price.</p>
+      </div>
+
+      <aside class="result-column">
+        <section id="result-panel" class="result-panel panel" aria-live="polite" aria-atomic="true">
+          <div class="result-topline"><span class="section-kicker">02 / ESTIMATED VALUE</span><span class="result-indicator"><span></span> READY</span></div>
+          <div id="empty-result" class="empty-result">
+            <div class="empty-illustration" aria-hidden="true">
+              <svg viewBox="0 0 240 112" role="img" aria-label="Illustration of a car">
+                <path d="M35 69h170l-8-24c-2-7-8-12-16-13l-24-3-21-17H91L69 32l-20 5c-8 2-12 8-14 15z" fill="#dbe6ef" stroke="#8ca2b7" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M76 33l18-15h42l17 15z" fill="#eff5f8" stroke="#8ca2b7" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M34 59h172" stroke="#8ca2b7" stroke-width="2"/>
+                <circle cx="72" cy="71" r="15" fill="#172b45"/><circle cx="72" cy="71" r="6" fill="#edf3f7"/>
+                <circle cx="176" cy="71" r="15" fill="#172b45"/><circle cx="176" cy="71" r="6" fill="#edf3f7"/>
+                <path d="M47 51h16M191 51h9" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Your estimate will appear here</h3>
+            <p>Complete the vehicle details and select <strong>Predict resale value</strong>.</p>
+            <div class="empty-divider"><span></span> YOUR RESULT <span></span></div>
+          </div>
+          <div id="prediction-result" hidden>
+            <p class="result-label">PREDICTED RESALE PRICE</p>
+            <div id="price-value" class="price-value">₹—</div>
+            <div class="range-heading"><span>Likely range</span><span class="range-confidence">APPROX. 80%</span></div>
+            <div class="range-values"><strong id="low-value">₹—</strong><strong id="high-value">₹—</strong></div>
+            <div class="range-track" aria-label="Predicted price shown within its likely range">
+              <div class="range-fill"></div><span class="range-marker"></span>
+            </div>
+            <div class="range-ends"><span>LOW</span><span>ESTIMATE</span><span>HIGH</span></div>
+            <div id="warnings" class="warnings" hidden></div>
+            <div class="result-divider"></div>
+            <p class="result-footnote">The range is an empirical estimate derived from held-out model errors. It is not a guarantee.</p>
+          </div>
+        </section>
+
+        <section class="about-panel panel" aria-labelledby="about-title">
+          <div class="about-icon" aria-hidden="true">i</div>
+          <div>
+            <h2 id="about-title">About this estimate</h2>
+            <p>The model learned from CarDekho asking prices captured around 2020. Values are nominal INR, not inflation-adjusted or confirmed sale prices.</p>
+            <ul>
+              <li>Training model years: <strong>1983–2020</strong>. The form does not accept years outside this range.</li>
+              <li>Vehicle condition, accident and service history are not included.</li>
+              <li>Luxury and rare-brand estimates have lower confidence because training examples are limited.</li>
+            </ul>
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <footer class="site-footer">
+      <span>CARVALUE <span class="footer-dot">·</span> IDSE COURSE PROJECT</span>
+      <span>Model output is an estimate, not financial or valuation advice.</span>
+    </footer>
+  </main>
+</body>
+</html>
