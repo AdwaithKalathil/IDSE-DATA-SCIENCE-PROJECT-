@@ -1,0 +1,8 @@
+scenario,cars,median change in predicted price (%)
+1 year older (km unchanged),693,-8.3
+"+20,000 km driven",693,-2.4
++10 bhp max power,673,8.0
+Petrol -> Diesel,325,16.4
+Manual -> Automatic,632,7.6
+First -> Second owner,428,-5.1
+Individual -> Dealer seller,630,2.5
